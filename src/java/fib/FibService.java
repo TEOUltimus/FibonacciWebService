@@ -29,4 +29,15 @@ public class FibService {
         double a = Math.pow((1 + SQRT5) / 2, n), b = Math.pow((1 - SQRT5) / 2, n);
         return (int) ((a - b) / SQRT5);
     }
+    
+    @WebMethod(operationName = "fibCheck")
+    public boolean fibCheck(@WebParam(name = "n") int n) {
+        double a = Math.sqrt(5.0 * Math.pow(n, 2.0) + 4.0),
+               b = Math.sqrt(5.0 * Math.pow(n, 2.0) - 4.0);
+        return isInt(a) || isInt(b);
+    }
+    
+    private boolean isInt(double x) {
+        return (int) x == x;
+    }
 }
