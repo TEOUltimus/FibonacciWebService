@@ -16,22 +16,25 @@ import static org.junit.Assert.*;
  * @author esummers
  */
 public class FibServiceTest {
-    
+
+    public static final int[] FIBS = {0, 1, 1, 2, 3, 5, 8, 13, 21};
+    public static final int[] NO_FIBS = {-1, 4, 7, 16, 20};
+
     public FibServiceTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -55,11 +58,12 @@ public class FibServiceTest {
     @Test
     public void testFib() {
         System.out.println("fib");
-        int n = 0;
-        FibService instance = new FibService();
-        int expResult = 0;
-        int result = instance.fib(n);
-        assertEquals(expResult, result);
+        for (int i = 0; i < FIBS.length; i++) {
+            FibService instance = new FibService();
+            int expResult = FIBS[i];
+            int result = instance.fib(i);
+            assertEquals(expResult, result);
+        }
     }
 
     /**
@@ -68,11 +72,15 @@ public class FibServiceTest {
     @Test
     public void testFibCheck() {
         System.out.println("fibCheck");
-        int n = 0;
         FibService instance = new FibService();
-        boolean expResult = true;
-        boolean result = instance.fibCheck(n);
-        assertEquals(expResult, result);
+        for (int f : FIBS) {
+            boolean result = instance.fibCheck(f);
+            assertEquals(true, result);
+        }
+        for (int f : NO_FIBS) {
+            boolean result = instance.fibCheck(f);
+            assertEquals(false, result);
+        }
     }
 
     /**
@@ -81,10 +89,10 @@ public class FibServiceTest {
     @Test
     public void testWhichFib() {
         System.out.println("whichFib");
-        int n = 0;
         FibService instance = new FibService();
-        int expResult = 0;
-        int result = instance.whichFib(n);
-        assertEquals(expResult, result);
+        for (int i = 2; i < FIBS.length; i++) {
+            int result = instance.whichFib(FIBS[i]);
+            assertEquals(i, result);
+        }
     }
 }
