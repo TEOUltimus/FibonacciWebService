@@ -14,6 +14,7 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "Fibonacci")
 public class FibService {
+        private static final double SQRT5 = Math.sqrt(5.0);
 
     /**
      * This is a sample web service operation
@@ -25,7 +26,6 @@ public class FibService {
 
     @WebMethod(operationName = "fib")
     public int fib(@WebParam(name = "n") int n) {
-        final double SQRT5 = Math.sqrt(5.0);
         double a = Math.pow((1 + SQRT5) / 2, n), b = Math.pow((1 - SQRT5) / 2, n);
         return (int) ((a - b) / SQRT5);
     }
@@ -35,6 +35,16 @@ public class FibService {
         double a = Math.sqrt(5.0 * Math.pow(n, 2.0) + 4.0),
                b = Math.sqrt(5.0 * Math.pow(n, 2.0) - 4.0);
         return isInt(a) || isInt(b);
+    }
+    
+    @WebMethod(operationName = "whichFib")
+    public int whichFib(@WebParam(name = "n") int n) {
+        if (!fibCheck(n)) {
+            return -1;
+        }
+        double base = Math.log((1+SQRT5)/2);
+        double a = Math.log((n * SQRT5 + Math.sqrt(5 * Math.pow(n, 2.0) + 4))/2.0)/base;
+        return (int) a;
     }
     
     private boolean isInt(double x) {
